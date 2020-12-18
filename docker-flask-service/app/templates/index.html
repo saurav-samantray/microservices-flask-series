@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+{% block content %}
+<div class="row text-center">
+   <h1>Welcome!</h1>
+</div>
+<br>
+<div class="row">
+   <div class="col-md-12">
+   		<a href="#">
+      <div class="card-counter primary">
+         <i class="fa fa-hand-pointer-o"></i>
+         <span id="counter-value" class="count-numbers">{{counter}}</span>
+         <span class="count-name">Global Click Counter</span>
+      </div>
+  </a>
+   </div>
+</div>
+<br>
+<hr>
+{% endblock %}
