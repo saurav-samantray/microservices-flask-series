@@ -8,3 +8,9 @@
 .uploader{
 height: 200px;
 }
+
+@media screen and (max-width: 500px) {
+    .button-text {
+        display: none;
+    }
+}

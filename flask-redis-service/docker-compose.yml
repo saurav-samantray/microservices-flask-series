@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    container_name: 'frs_app'
+    restart: always
+    build: ./app
+    expose:
+      - "8000"
+    volumes:
+      - app-data:/static
+    env_file: 
+      - .env
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+
+  redis:
+    image: redis
+    container_name: 'frs_redis'
+    expose:
+      - 6379
+
+  nginx:
+    container_name: 'frs_ngnix'
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/www/static
+      - app-data:/usr/src/app/static
+    links:
+      - app:app
+
+volumes:
+  app-data:
