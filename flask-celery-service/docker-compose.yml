@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  app:
+    container_name: 'dfs_app'
+    restart: always
+    build: ./app
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - app-data:/static
+      - uploads:/uploads
+      - download:/download
+    env_file: 
+      - .env
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+
+  worker:
+    build:
+      context: "./app"
+      args:
+        - "FLASK_ENV=${FLASK_ENV:-production}"
+    command: celery -A app.celery worker --loglevel=info
+    depends_on:
+      - "redis"
+    volumes:
+      - uploads:/uploads
+      - download:/download
+    env_file:
+      - ".env"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+
+  nginx:
+    container_name: 'dfs_ngnix'
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/www/static
+      - app-data:/usr/src/app/static
+    links:
+      - app:app
+  redis:
+    env_file:
+      - ".env"
+    image: "redis:6.0.5-buster"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    volumes:
+      - "redis:/data"
+
+
+volumes:
+  app-data:
+  redis:
+  uploads:
+  download:

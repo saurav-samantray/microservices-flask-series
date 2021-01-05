@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% block content %}
+<div class="row text-center">
+	<h1>Stopword Remover App</h1>
+</div>
+<div class="row justify-content-center uploader mt-4">
+	<div class="col-md-4 shadow rounded p-4">
+		<!-- <h2>File Upload</h2> -->
+		<div class="row">
+			<form method="POST" action="#" id="upload-form" enctype="multipart/form-data">
+				<div class="input-group">
+					<input type="file" name="file" class="form-control" id="file-selection-button" aria-describedby="upload-button" aria-label="Upload">
+					<button class="btn btn-outline-secondary" type="submit" id="upload-button">Upload</button>
+				</div>
+			</form>
+		</div>
+		<div class="row mt-5">
+			<div class="col" align="left">
+				<button style="width: 100%; "type="button" disabled id="processing-status" class="btn btn-success btn-md"><i class="fa fa-refresh"><span class="h6 p-2">Status</span></i></button>
+			</div>
+			<div class="col border" style="display: flex;flex-direction: column; justify-content: center;" align="center">
+				<h6 id="status">-</h6>
+			</div>
+			<div class="col" align="right">
+				<button type="button" style="width: 100%;" id="download-button" disabled class="btn btn-primary btn-md"><i class="fa fa-download"><span class="h6 p-2">Download</span></i></button>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="upload-task-id" name="upload-task-id">
+	<input type="hidden" id="upload-file-name" name="upload-file-name">
+</div>
+{% endblock %}
