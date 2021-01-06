@@ -10,15 +10,14 @@ First part of the Microservices using Flask series where we will explore not onl
 <br />
 <br />
 
-
 ## Microservices using Flask (MUF) — Containerization
 ### [Blog](https://github.com/saurav-samantray/microservices-flask-series/tree/main/docker-flask-service)
 Containerization your application is an essential step which not only eases deployment but also ensures that application runs in an efficient and bug-free way across different environments.
 <br />
 ### [Code](https://github.com/saurav-samantray/microservices-flask-series/tree/main/docker-flask-service)
+<br />
+<br />
 
-<br />
-<br />
 ## Microservices using Flask (MUF) — Redis Cache
 ### [Blog](https://saurav-samantray.medium.com/microservices-using-flask-muf-redis-caching-e10ce74d274)
 Caching improves and speeds up service response and helps us avoid repeated computes. Explore how flask can connect and use redis as a caching layer.
