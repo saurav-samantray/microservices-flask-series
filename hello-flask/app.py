@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 
 app = Flask(__name__)
@@ -6,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    app.logger.debug("Hello debug")
     return "Hello World!"
 
 if __name__ == '__main__':
