@@ -24,6 +24,15 @@ deactivate
 pip install -r requirements.txt
 ```
 
+## Running the application in local
+```
+python app.py
+```
+or
+```
+flask --debug run --port 5001
+```
+
 ## Possible erros
 ### Running activate/deactive script via visual studio terminal - <b>cannot be loaded 
 because running scripts is disabled on this system.</b>
