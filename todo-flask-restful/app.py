@@ -1,17 +1,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from exceptions import ToDoAlreadyExists
-
-
-errors = {
-    'ToDoAlreadyExists': {
-        'message': "A todo with that name already exists.",
-        'status': 400,
-    },
-}
 
 app = Flask(__name__)
-api = Api(app, errors=errors)
+api = Api(app)
 
 todoData = [
     {"id": 1, "name": "File ITR", "status": "STARTED"}, 
@@ -19,30 +10,12 @@ todoData = [
 ]
 
 class ToDo(Resource):
-
 	def get(self):
 		return todoData
-
 	def post(self):
 		todo = request.json
-		for td in todoData:
-			if td['name'] == todo['name']:
-				raise ToDoAlreadyExists
-		todoData.append(todo)        
-		return todoData, 201
-
-	def put(self):
-		todo = request.json
-		for idx, td in enumerate(todoData):
-			if str(td['id']) == str(request.args['id']):
-				todoData[idx] = todo
-		return todoData
-
-	def delete(self):
-		for idx, td in enumerate(todoData):
-			if str(td['id']) == str(request.args['id']):
-				todoData.pop(idx)
-				return {'message': 'Deleted', 'id': td['id']}
+		todoData.append(todo)
+		return todoData		
 
 api.add_resource(ToDo, '/api/todos')
 

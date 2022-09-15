@@ -1,13 +1,21 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, abort
+from werkzeug.exceptions import HTTPException
+from exceptions import ToDoAlreadyExists
+
 
 app = Flask(__name__)
-api = Api(app)
 
 todoData = [
     {"id": 1, "name": "File ITR", "status": "STARTED"}, 
     {"id": 2, "name": "Complete Flask microservices", "status": "NEW"},
 ]
+
+class CustomApi(Api):
+    def handle_error(self, e):
+        return {'code': e.code, 'message': e.message}, 400
+
+api = CustomApi(app)		
 
 class ToDo(Resource):
 
@@ -16,7 +24,10 @@ class ToDo(Resource):
 
 	def post(self):
 		todo = request.json
-		todoData.append(todo)        
+		for td in todoData:
+			if td['name'] == todo['name']:
+				raise ToDoAlreadyExists(f"ToDo [{todo['name']}] already exists", 400)
+		todoData.append(todo)
 		return todoData, 201
 
 	def put(self):
