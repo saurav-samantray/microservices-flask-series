@@ -1,5 +1,5 @@
 import unittest
-import app3 as app
+import app as app
 
 unittest.TestLoader.sortTestMethodsUsing = None
 BASE_URL = '/api/todos'
